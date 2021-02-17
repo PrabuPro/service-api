@@ -33,8 +33,8 @@ public class SwaggerConfig {
                 "myEmail@email.com");
 
         return new ApiInfo(
-                "Rest API",
-                "Rest API build with Spring boot",
+                "Service API",
+                "Service API build with Spring boot",
                 "1.0",
                 "none",
                 contact,

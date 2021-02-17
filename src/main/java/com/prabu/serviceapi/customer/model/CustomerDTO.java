@@ -3,6 +3,8 @@ package com.prabu.serviceapi.customer.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import javax.validation.constraints.*;
+
 @Data
 public class CustomerDTO {
 

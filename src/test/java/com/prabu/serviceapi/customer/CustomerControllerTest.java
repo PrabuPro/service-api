@@ -1,6 +1,7 @@
 package com.prabu.serviceapi.customer;
 
 import com.prabu.serviceapi.customer.model.CustomerDTO;
+//import com.prabu.serviceapi.exception.RestResponceEntityExceptionHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -37,7 +38,9 @@ class CustomerControllerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(customerController)
+//                .setControllerAdvice(new RestResponceEntityExceptionHandler())
+                .build();
     }
 
     @Test

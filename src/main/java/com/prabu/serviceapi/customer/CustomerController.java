@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping( path = CustomerController.API_V_1_CUSTOMER)
 public class CustomerController {
@@ -31,7 +33,7 @@ public class CustomerController {
     }
 
     @PostMapping()
-    public ResponseEntity<CustomerDTO> saveCustomer(@RequestBody CustomerDTO customerDTO){
+    public ResponseEntity<CustomerDTO> saveCustomer(@Valid @RequestBody CustomerDTO customerDTO){
         return new ResponseEntity<>(customerService.saveCustomer(customerDTO),HttpStatus.OK);
     }
 
