@@ -1,10 +1,12 @@
 package com.prabu.serviceapi.customer;
 
 
+import com.prabu.serviceapi.vehicle.Vehicle;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -34,4 +36,7 @@ public class Customer {
     private String mobileNumber;
 
     private String Address;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Set<Vehicle> vehicles;
 }

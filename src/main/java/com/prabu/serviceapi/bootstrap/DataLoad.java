@@ -50,7 +50,7 @@ public class DataLoad implements ApplicationListener<ContextRefreshedEvent> {
         AppUser user = new AppUser();
         user.setFirstName("firstName");
         user.setLastName("lastName");
-        user.setEmail("email@emal.com");
+        user.setEmail("email@email.com");
         user.setPassword("password");
         user.setAppUserRole(AppUserRole.USER);
 
