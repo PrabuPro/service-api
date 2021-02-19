@@ -2,7 +2,7 @@ package com.prabu.serviceapi.customer;
 
 import com.prabu.serviceapi.customer.model.CustomerDTO;
 import com.prabu.serviceapi.customer.model.CustomerListDTO;
-import com.prabu.serviceapi.customer.model.CustomerPage;
+import com.prabu.serviceapi.pagination.PaginationPage;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +28,8 @@ public class CustomerController {
     }
 
     @GetMapping("/grid")
-    public ResponseEntity<Page<CustomerDTO>> getCustomerGrid(CustomerPage customerPage){
-        return new ResponseEntity<>(customerService.getCustomerGrid(customerPage), HttpStatus.OK);
+    public ResponseEntity<Page<CustomerDTO>> getCustomerGrid(PaginationPage paginationPage){
+        return new ResponseEntity<>(customerService.getCustomerGrid(paginationPage), HttpStatus.OK);
     }
 
     @PostMapping()

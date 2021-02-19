@@ -1,37 +1,23 @@
-package com.prabu.serviceapi.vehicle;
+package com.prabu.serviceapi.vehicle.model;
 
 import com.prabu.serviceapi.customer.Customer;
+import com.prabu.serviceapi.customer.model.CustomerDTO;
+import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 @Data
-@Entity
-public class Vehicle {
+public class VehicleDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotNull
     private String vehicleNumber;
-
-    @NotNull
     private Integer year;
-
-    @NotNull
     private String model;
-
-    @NotNull
     private String chassisNumber;
-
-    @NotNull
     private String EngineNumber;
-
-    @ManyToOne
-    private Customer customer;
-
+    private CustomerDTO customer;
     private Double currentMilage;
 
 }

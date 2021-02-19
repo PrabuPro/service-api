@@ -2,7 +2,7 @@ package com.prabu.serviceapi.customer;
 
 import com.prabu.serviceapi.customer.mapper.CustomerMapper;
 import com.prabu.serviceapi.customer.model.CustomerDTO;
-import com.prabu.serviceapi.customer.model.CustomerPage;
+import com.prabu.serviceapi.pagination.PaginationPage;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +29,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Page<CustomerDTO> getCustomerGrid(CustomerPage customerPage) {
-        Sort sort = Sort.by(customerPage.getSortDirection(), customerPage.getSortBy());
+    public Page<CustomerDTO> getCustomerGrid(PaginationPage paginationPage) {
+        Sort sort = Sort.by(paginationPage.getSortDirection(), paginationPage.getSortBy());
         Pageable pageable = PageRequest.of(
-                customerPage.getPageNumber(),
-                customerPage.getPageSize(),
+                paginationPage.getPageNumber(),
+                paginationPage.getPageSize(),
                 sort);
         List<CustomerDTO> customerList = customerRepository.findAll(pageable)
                                         .stream()
