@@ -32,6 +32,6 @@ public class Vehicle {
     @ManyToOne
     private Customer customer;
 
-    private Double currentMilage;
+    private Double currentMileage;
 
 }

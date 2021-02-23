@@ -1,11 +1,13 @@
 package com.prabu.serviceapi.vehicle;
 
+import com.prabu.serviceapi.pagination.PaginationPage;
+import com.prabu.serviceapi.vehicle.model.VehicleDTO;
 import com.prabu.serviceapi.vehicle.model.VehicleListDTO;
+import com.prabu.serviceapi.vehicle.model.VehicleRequestDTO;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(VehicleController.API_V_1_VEHICLE)
@@ -23,5 +25,20 @@ public class VehicleController {
     public ResponseEntity<VehicleListDTO> getVehicleList(){
         return new ResponseEntity<>(
                 new VehicleListDTO(vehicleService.getAllVehicles()), HttpStatus.OK);
+    }
+
+    @GetMapping("/grid")
+    public ResponseEntity<Page<VehicleDTO>> getVehicleGrid(PaginationPage paginationPage){
+        return new ResponseEntity<>(vehicleService.getVehicleGrid(paginationPage), HttpStatus.OK);
+    }
+
+    @PostMapping()
+    public ResponseEntity<VehicleDTO> saveVehicle(@RequestBody VehicleRequestDTO vehicleDTO){
+        return new ResponseEntity<VehicleDTO>(vehicleService.saveVehicle(vehicleDTO), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<VehicleDTO> updateVehicle(@PathVariable Long id, @RequestBody VehicleRequestDTO vehicleRequestDTO){
+        return new ResponseEntity<VehicleDTO>(vehicleService.updateVehicle(id, vehicleRequestDTO), HttpStatus.OK);
     }
 }

@@ -1,9 +1,14 @@
 package com.prabu.serviceapi.vehicle;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.prabu.serviceapi.customer.CustomerService;
 import com.prabu.serviceapi.exception.GlobalExceptionHandler;
 import com.prabu.serviceapi.vehicle.model.VehicleDTO;
+import com.prabu.serviceapi.vehicle.model.VehicleRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -14,7 +19,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
+import static com.prabu.serviceapi.customer.AbstractRestController.asJsonString;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -23,8 +29,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class VehicleControllerTest {
 
+    public static final String VEHICLE_NUMBER = "123";
+    public static final long ID = 1L;
     @Mock
     VehicleService vehicleService;
+
 
     @InjectMocks
     VehicleController vehicleController;
@@ -55,5 +64,43 @@ class VehicleControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.vehicles", hasSize(2)));
+    }
+
+    @Test
+    void saveVehicle() throws Exception {
+        VehicleRequestDTO vehicleDTO1 = new VehicleRequestDTO();
+        vehicleDTO1.setVehicleNumber(VEHICLE_NUMBER);
+        vehicleDTO1.setCustomer(1L);
+
+        VehicleDTO vehicleReturn = new VehicleDTO();
+        vehicleReturn.setId(ID);
+        vehicleReturn.setVehicleNumber(VEHICLE_NUMBER);
+
+        when(vehicleService.saveVehicle(vehicleDTO1)).thenReturn(vehicleReturn);
+
+        mockMvc.perform(post(VehicleController.API_V_1_VEHICLE)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(vehicleDTO1)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.vehicleNumber", equalTo(VEHICLE_NUMBER)));
+    }
+
+    @Test
+    void updateVehicle() throws Exception {
+        VehicleRequestDTO vehicleDTO1 = new VehicleRequestDTO();
+        vehicleDTO1.setVehicleNumber(VEHICLE_NUMBER);
+        vehicleDTO1.setCustomer(1L);
+
+        VehicleDTO vehicleReturn = new VehicleDTO();
+        vehicleReturn.setId(ID);
+        vehicleReturn.setVehicleNumber(VEHICLE_NUMBER);
+
+        when(vehicleService.updateVehicle(ID,vehicleDTO1)).thenReturn(vehicleReturn);
+
+        mockMvc.perform(put(VehicleController.API_V_1_VEHICLE + "/" + ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(vehicleDTO1)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.vehicleNumber", equalTo(VEHICLE_NUMBER)));
     }
 }

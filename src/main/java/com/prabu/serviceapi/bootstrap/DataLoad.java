@@ -71,7 +71,7 @@ public class DataLoad implements ApplicationListener<ContextRefreshedEvent> {
         vehicle.setModel("modle");
         vehicle.setChassisNumber("chassis");
         vehicle.setEngineNumber("engine");
-        vehicle.setCurrentMilage(100.50);
+        vehicle.setCurrentMileage(100.50);
 
         Customer customer = customerRepository.getByFirstName("firstName1");
         vehicle.setCustomer(customer);
@@ -82,7 +82,7 @@ public class DataLoad implements ApplicationListener<ContextRefreshedEvent> {
         vehicle1.setModel("model");
         vehicle1.setChassisNumber("chassis");
         vehicle1.setEngineNumber("engine");
-        vehicle1.setCurrentMilage(100.50);
+        vehicle1.setCurrentMileage(100.50);
 
         Customer customer1 = customerRepository.getByFirstName("firstName2");
         vehicle1.setCustomer(customer1);
