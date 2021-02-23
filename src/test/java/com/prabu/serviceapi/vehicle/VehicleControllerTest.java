@@ -103,4 +103,11 @@ class VehicleControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.vehicleNumber", equalTo(VEHICLE_NUMBER)));
     }
+
+    @Test
+    void deleteVehicle() throws Exception {
+        mockMvc.perform(delete(VehicleController.API_V_1_VEHICLE + '/' + ID)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 }

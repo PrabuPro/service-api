@@ -18,4 +18,6 @@ public interface VehicleService {
     VehicleDTO saveVehicle(VehicleRequestDTO vehicleDTO);
 
     VehicleDTO updateVehicle(Long id, VehicleRequestDTO vehicleRequestDTO);
+
+    void deleteVehicle(Long id);
 }

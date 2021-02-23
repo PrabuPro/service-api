@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class VehicleServiceImplTest {
 
@@ -96,5 +96,12 @@ class VehicleServiceImplTest {
 
         assertEquals(saveVehicle.getId(), ID);
         assertEquals(saveVehicle.getVehicleNumber(), VEHICLE_NUMBER);
+    }
+
+    @Test
+    void deleteVehicle(){
+        vehicleService.deleteVehicle(anyLong());
+
+        verify(vehicleRepository, times(1)).deleteById(anyLong());
     }
 }

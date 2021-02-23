@@ -63,4 +63,9 @@ public class VehicleServiceImpl implements VehicleService {
         vehicle.setId(id);
         return vehicleMapper.vehicleToVehicleDTO(vehicleRepository.save(vehicle));
     }
+
+    @Override
+    public void deleteVehicle(Long id) {
+        vehicleRepository.deleteById(id);
+    }
 }
