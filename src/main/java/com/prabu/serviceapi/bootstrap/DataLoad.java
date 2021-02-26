@@ -5,6 +5,8 @@ import com.prabu.serviceapi.appuser.AppUserRole;
 import com.prabu.serviceapi.appuser.AppUserService;
 import com.prabu.serviceapi.customer.Customer;
 import com.prabu.serviceapi.customer.CustomerRepository;
+import com.prabu.serviceapi.inventory.category.Category;
+import com.prabu.serviceapi.inventory.category.CategoryRepository;
 import com.prabu.serviceapi.vehicle.Vehicle;
 import com.prabu.serviceapi.vehicle.VehicleRepository;
 import org.springframework.context.ApplicationListener;
@@ -17,11 +19,13 @@ public class DataLoad implements ApplicationListener<ContextRefreshedEvent> {
     private final AppUserService appUserService;
     private final CustomerRepository customerRepository;
     private final VehicleRepository vehicleRepository;
+    private final CategoryRepository categoryRepository;
 
-    public DataLoad(AppUserService appUserService, CustomerRepository customerRepository, VehicleRepository vehicleRepository) {
+    public DataLoad(AppUserService appUserService, CustomerRepository customerRepository, VehicleRepository vehicleRepository, CategoryRepository categoryRepository) {
         this.appUserService = appUserService;
         this.customerRepository = customerRepository;
         this.vehicleRepository = vehicleRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -30,6 +34,19 @@ public class DataLoad implements ApplicationListener<ContextRefreshedEvent> {
         signUpUser();
         addCustomers();
         addVehicles();
+        addCategoris();
+    }
+
+    private void addCategoris() {
+        Category category = new Category();
+        category.setCategoryName("category name 1");
+
+        Category category2 = new Category();
+        category2.setCategoryName("category name 2");
+
+        categoryRepository.save(category);
+        categoryRepository.save(category2);
+
     }
 
 
