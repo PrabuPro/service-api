@@ -5,13 +5,18 @@ import com.prabu.serviceapi.appuser.AppUserRole;
 import com.prabu.serviceapi.appuser.AppUserService;
 import com.prabu.serviceapi.customer.Customer;
 import com.prabu.serviceapi.customer.CustomerRepository;
+import com.prabu.serviceapi.exception.ResourceNotFoundException;
 import com.prabu.serviceapi.inventory.category.Category;
 import com.prabu.serviceapi.inventory.category.CategoryRepository;
+import com.prabu.serviceapi.inventory.inventory.Inventory;
+import com.prabu.serviceapi.inventory.inventory.InventoryRepository;
 import com.prabu.serviceapi.vehicle.Vehicle;
 import com.prabu.serviceapi.vehicle.VehicleRepository;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
 
 @Component
 public class DataLoad implements ApplicationListener<ContextRefreshedEvent> {
@@ -20,12 +25,14 @@ public class DataLoad implements ApplicationListener<ContextRefreshedEvent> {
     private final CustomerRepository customerRepository;
     private final VehicleRepository vehicleRepository;
     private final CategoryRepository categoryRepository;
+    private final InventoryRepository inventoryRepository;
 
-    public DataLoad(AppUserService appUserService, CustomerRepository customerRepository, VehicleRepository vehicleRepository, CategoryRepository categoryRepository) {
+    public DataLoad(AppUserService appUserService, CustomerRepository customerRepository, VehicleRepository vehicleRepository, CategoryRepository categoryRepository, InventoryRepository inventoryRepository) {
         this.appUserService = appUserService;
         this.customerRepository = customerRepository;
         this.vehicleRepository = vehicleRepository;
         this.categoryRepository = categoryRepository;
+        this.inventoryRepository = inventoryRepository;
     }
 
     @Override
@@ -35,7 +42,10 @@ public class DataLoad implements ApplicationListener<ContextRefreshedEvent> {
         addCustomers();
         addVehicles();
         addCategoris();
+        addInventories();
     }
+
+
 
     private void addCategoris() {
         Category category = new Category();
@@ -108,5 +118,31 @@ public class DataLoad implements ApplicationListener<ContextRefreshedEvent> {
         vehicleRepository.save(vehicle1);
 
 
+    }
+
+    private void addInventories() {
+        Inventory inventory1 = new Inventory();
+        inventory1.setPartName("part name");
+        inventory1.setPartNumber("part number");
+        inventory1.setPurchasedPrice(BigDecimal.valueOf(100.20));
+        inventory1.setSalePrice(BigDecimal.valueOf(150.20));
+        inventory1.setWarrentyStatus(true);
+        inventory1.setWarrantyDuration(2);
+        Category category = categoryRepository.findById(Long.valueOf(1)).orElseThrow(ResourceNotFoundException::new);
+        inventory1.setCategory(category);
+
+        inventoryRepository.save(inventory1);
+
+        Inventory inventory2 = new Inventory();
+        inventory2.setPartName("part name");
+        inventory2.setPartNumber("part number");
+        inventory2.setPurchasedPrice(BigDecimal.valueOf(100.20));
+        inventory2.setSalePrice(BigDecimal.valueOf(150.20));
+        inventory2.setWarrentyStatus(true);
+        inventory2.setWarrantyDuration(2);
+        Category category2 = categoryRepository.findById(Long.valueOf(1)).orElseThrow(ResourceNotFoundException::new);
+        inventory2.setCategory(category2);
+
+        inventoryRepository.save(inventory2);
     }
 }
