@@ -34,6 +34,13 @@ public class GlobalExceptionHandler{
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<?> customerNotFoundException(MethodArgumentNotValidException exception, WebRequest request){
+        ErrorDetails errorDetails =
+                new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
     // handling global exception
 
 //    @ExceptionHandler(Exception.class)

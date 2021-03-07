@@ -20,4 +20,6 @@ public interface VehicleService {
     VehicleDTO updateVehicle(Long id, VehicleRequestDTO vehicleRequestDTO);
 
     void deleteVehicle(Long id);
+
+    List<VehicleDTO> findAllByCustomer(Long id);
 }

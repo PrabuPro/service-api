@@ -1,6 +1,7 @@
 package com.prabu.serviceapi.customer;
 
 
+import com.prabu.serviceapi.job.Job;
 import com.prabu.serviceapi.vehicle.Vehicle;
 import lombok.Data;
 
@@ -39,4 +40,7 @@ public class Customer {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     private Set<Vehicle> vehicles;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Set<Job> jobs;
 }

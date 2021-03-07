@@ -9,6 +9,7 @@ import com.prabu.serviceapi.vehicle.model.VehicleDTO;
 import com.prabu.serviceapi.vehicle.model.VehicleRequestDTO;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -67,5 +68,17 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public void deleteVehicle(Long id) {
         vehicleRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<VehicleDTO> findAllByCustomer(Long id) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("customer not found"));
+
+        return vehicleRepository.findAllByCustomer(customer)
+                .stream()
+                .map(vehicleMapper::vehicleToVehicleDTO)
+                .collect(Collectors.toList());
     }
 }

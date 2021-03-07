@@ -47,4 +47,9 @@ public class VehicleController {
         vehicleService.deleteVehicle(id);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
+
+    @GetMapping("/findByCustomer/{id}")
+    public ResponseEntity<VehicleListDTO> findByCustomer(@PathVariable Long id){
+        return new ResponseEntity<>(new VehicleListDTO(vehicleService.findAllByCustomer(id)), HttpStatus.OK);
+    }
 }
